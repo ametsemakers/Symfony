@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Edit Genus</h1>
+                {{ form_start(formArticle) }}
+                    {{ form_row(formArticle.title) }}
+                    {{ form_row(formArticle.body) }}
+                    <div class="col-xs-12">
+                        <p>Image article</p>
+                        {{ dump(test) }}
+                        <img src="{{asset('uploads/images/' ~ test)}}" alt="{{test}}" width="400" height="auto" />
+                    </div>
+                    {{ form_row(formArticle.image) }}
+                    {{ form_row(formArticle.slug) }}
+                    {{ form_row(formArticle.publish) }}
+                    <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+                {{ form_end(formArticle) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

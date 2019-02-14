@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        {{ dump(articles) }}
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="panel panel-success">
+                <div class="panel-heading">Liste d'articles</div>
+
+                {% if app.user != null %}
+                    <table class="table">
+                        <tr>
+                            <th>Titre</th>
+                            <th>Contenu</th>
+                            <th>Auteur</th>
+                            <th>Date</th>
+                            <th>Modifier</th>
+                            <th>Etat</th>
+                            <th>Publier / retirer<th>
+                        </tr>
+
+                        {% for article in articles %}
+                        <tr>
+                            <td>{{ article.title }}</td>
+                            <td>{{ article.body }}</td>
+                            {% if article.author != null %}
+                            <td>{{ article.author.name }}</td>
+                            {% endif %}
+                            {% if article.author == null %}
+                            <td></td>
+                            {% endif %}
+                            <td>{{ article.dateArticle.date|date('Y-m-d') }}</td>
+                            <td><a href="{{path('modification', { 'id': article.id })}}">Modifier</a></td>
+                            {% if article.publish != true %}
+                            <td>Non publié</td>
+                            {% endif %}
+                            {% if article.publish == true %}
+                            <td>Publié</td>
+                            {% endif %}
+                            <td><a href="{{path('publication', { 'id': article.id })}}">Publier</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+                {% if app.user == null %}
+                <p>Vous n'êtes pas autorisé de visualiser cette page.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
